@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="productId" format="java">
+      <types:shape format="raml"><![CDATA[#%RAML 1.0 DataType
+type: string]]></types:shape>
+    </types:type>
+    <types:type name="prudctsCollection" format="json">
+      <types:shape format="weave" example="examples/ACME_PRODUCTS_POST_EXAMPLE.json"><![CDATA[%dw 2.0
+
+type prudctsCollection = {|
+  PROD_DESCR: String, 
+  PROD_UNIT: Number {"typeId": "int"}, 
+  PROD_ID: String, 
+  PROD_PRICE: Number {"typeId": "int"}
+|} {"example": "{\\\"PROD_DESCR\\\":\\\"BLUSA MOLETOM CANGURU P\\\",\\\"PROD_UNIT\\\":100,\\\"PROD_ID\\\":\\\"10\\\",\\\"PROD_PRICE\\\":150}"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#a9640e1d-f025-41e5-acbb-2483017e1393">
+    <types:operation-declaration>
+      <types:inputs>
+        <types:parameter name="value" type="productId"/>
+      </types:inputs>
+    </types:operation-declaration>
+  </types:enrichment>
+  <types:enrichment select="#8fc8a02e-db7f-4694-9e5e-05d486ee68a6">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="prudctsCollection"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:message>
+          <types:payload type="prudctsCollection"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>

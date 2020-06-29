@@ -1,0 +1,27 @@
+#%RAML 1.0
+title: ACME GET/POST Products (DATA)
+
+types:
+ Product:
+   type:          object
+   properties:
+     PROD_ID:      string
+     PROD_DESCR:   string
+     PROD_UNIT:    number
+     PROD_PRICE:   number
+
+/productGet/{id}:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            type: Product
+
+/productPost/:
+  post:
+    responses:
+      200:
+        body:
+          application/json:
+            type: Product
